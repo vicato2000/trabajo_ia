@@ -1,15 +1,31 @@
-from nltk.lm.vocabulary import Vocabulary
-from nltk.corpus import stopwords
-import itertools
-from nltk import download
-from nltk.corpus.reader.plaintext import PlaintextCorpusReader
-from nltk.data import load
+from python_project.utils.clean_email import denoise_text
+from python_project.utils.reader import read_emails
 
 
-def extract_vocabulary(emails_list):
-    emails = [e for i, e in emails_list]
-
-    for e in emails:
-        e.rstrip()
+def generate_vocabulary():
+    # TODO
+    pass
 
 
+def spam_vocabulary():
+    email_list = read_emails('../Enron-Spam/no_deseado')
+
+    file = ''
+
+    for i in range(0, len(email_list) - 1):
+        file += '{}'.format(denoise_text('{}'.format(email_list[i]))) + '\n'
+
+    f = open('generated_documents/read_emails_no_deseado.txt', 'w')
+    f.write(file)
+
+
+def no_spam_vocabulary():
+    email_list = read_emails('../Enron-Spam/legítimo')
+
+    file = ''
+
+    for i in range(0, len(email_list) - 1):
+        file += '{}'.format(denoise_text('{}'.format(email_list[i]))) + '\n'
+
+    f = open('generated_documents/read_emails_legítimo.txt', 'w')
+    f.write(file)

@@ -1,5 +1,6 @@
 from email.parser import BytesParser, Parser
 from email.policy import default
+from utils import reader
 
 
 def read_email(email_path):
@@ -13,6 +14,5 @@ def read_email(email_path):
             'body': headers.get_payload()}
 
 
-
 if __name__ == '__main__':
-    print(read_email('/home/vicato/IA/trabajo_ia/Enron-Spam/legítimo/8647'))
+    print(reader.read_email('/home/vicato/IA/trabajo_ia/Enron-Spam/no_deseado/7'))
