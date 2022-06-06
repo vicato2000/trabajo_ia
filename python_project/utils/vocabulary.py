@@ -2,28 +2,24 @@ from python_project.utils.clean_email import denoise_text
 from python_project.utils.reader import read_emails
 import re
 import os
+from common_path import ROOT_PATH
 
 
-class FileEmail:
-    def __init__(self, file_legitimate_email_in, file_legitimate_out,
-                 file_spam_email_in, file_spam_out):
-        self.legitimate_email_vocabulary_in = file_legitimate_email_in
-        self.legitimate_email_vocabulary_out = file_legitimate_out
-        self.spam_email_vocabulary_in = file_spam_email_in
-        self.spam_email_vocabulary_out = file_spam_out
+def generate_vocabulary():
+    email_vocabulary(ROOT_PATH + '/Enron-Spam/legítimo',
+                     ROOT_PATH + '/python_project/utils/generated_documents'
+                                 '/read_emails_legítimo.txt')
 
-
-def generate_vocabulary(file_email):
-    email_vocabulary(file_email.legitimate_email_vocabulary_in,
-                     file_email.legitimate_email_vocabulary_out)
-
-    email_vocabulary(file_email.spam_email_vocabulary_in,
-                     file_email.spam_email_vocabulary_out)
+    email_vocabulary(ROOT_PATH + '/Enron-Spam/no_deseado',
+                     ROOT_PATH + '/python_project/utils/generated_documents'
+                                 '/read_emails_no_deseado.txt')
 
     vocabulary = set()
 
-    for file_path in [file_email.legitimate_email_vocabulary_out,
-                      file_email.spam_email_vocabulary_out]:
+    for file_path in [ROOT_PATH + '/python_project/utils/generated_documents'
+                                  '/read_emails_legítimo.txt',
+                      ROOT_PATH + '/python_project/utils/generated_documents'
+                                  '/read_emails_no_deseado.txt']:
         with open(file_path,
                   mode='r',
                   encoding='utf-8') as line:
@@ -52,3 +48,4 @@ def email_vocabulary(file_email_in, file_out):
               encoding='utf-8') as f:
 
         f.write(file)
+

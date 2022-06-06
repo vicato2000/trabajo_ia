@@ -2,18 +2,28 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from utils.reader import read_emails, read_email
 from utils.vocabulary import generate_vocabulary
 from sklearn import neighbors
+from common_path import ROOT_PATH
+import pandas as pd
+from matplotlib import pyplot
 
 
-def training_tf_idf(file_spam_email_path, file_no_spam_email_path, file_email):
-    corpus = get_corpus(file_spam_email_path, file_no_spam_email_path)
+def training_tf_idf():
+    corpus = get_corpus(ROOT_PATH + '/Enron-Spam/no_deseado',
+                        ROOT_PATH + '/Enron-Spam/legítimo')
 
-    vocabulary = generate_vocabulary(file_email)
+    vocabulary = generate_vocabulary()
 
-    vectorizer = TfidfVectorizer(vocabulary=vocabulary, stop_words='english',
-                                 lowercase=True)
-    x_vector = vectorizer.fit_transform(corpus)
+    vector = TfidfVectorizer(vocabulary=vocabulary,
+                             stop_words='english',
+                             lowercase=True)
 
-    return x_vector
+    vectors = vector.fit_transform(corpus)
+
+    dense = vectors.todense()
+
+    pyplot.show(dense)
+
+    return vectors
 
 
 def get_corpus(file_spam_email_path, file_no_spam_email_path):
@@ -25,13 +35,9 @@ def get_corpus(file_spam_email_path, file_no_spam_email_path):
     return result
 
 
-def classify_email(email_in, vector_tf_idf, file_email):
+def classify_email(email_path):
+    pass
 
-    vocabulary = generate_vocabulary(file_email)
 
-    clasif_kNN = neighbors.KNeighborsClassifier(n_neighbors=5)
-    clasif_kNN.fit(vector_tf_idf, vocabulary)
-
-    vector_to_classify = training_tf_idf.transform(read_email(email_in))
-
-    print(clasif_kNN.predict(vector_to_classify))
+if __name__ == '__main__':
+    training_tf_idf()
