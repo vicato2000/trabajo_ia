@@ -30,10 +30,10 @@ def generate_vocabulary(file_email):
             vocabulary.update(re.split(' |/|, |. ', line.read()))
 
     for e in vocabulary.copy():
-        if bool(re.search(r'\W|\d|-', e)):
+        if bool(re.search(r'\W|\d|-|_', e)):
             vocabulary.remove(e)
 
-    return vocabulary
+    return set(v.lower() for v in vocabulary)
 
 
 def email_vocabulary(file_email_in, file_out):
