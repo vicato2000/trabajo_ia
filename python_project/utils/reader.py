@@ -23,3 +23,7 @@ def read_emails(emails_folder_path):
 
     return [read_email('{}/{}'.format(emails_folder_path, e))
             for e in folder_files_list]
+
+
+
+
