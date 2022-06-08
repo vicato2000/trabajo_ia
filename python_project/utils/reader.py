@@ -41,7 +41,4 @@ def read_split_email_folder():
     result.update({'spam_{}'.format(e): train_email_spam[e] for e in
                    range(0, len(train_email_spam))})
 
-
-
     return result
-

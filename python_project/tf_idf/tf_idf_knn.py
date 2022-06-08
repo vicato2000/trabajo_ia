@@ -2,12 +2,14 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from python_project.utils.reader import read_split_email_folder, read_email
 from python_project.utils.vocabulary import generate_vocabulary
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.metrics import confusion_matrix
 import os.path
 import re
 import numpy as np
 from collections import Counter
 import pickle as pk
 from common_path import ROOT_PATH
+from multiprocessing import Pool
 
 
 def generate_tf_idf_vector():
@@ -111,13 +113,24 @@ def classify_email(email_path, k):
     return counter.most_common()[0][0]
 
 
+def classify_emails(emails_type, folder_path, k):
+    folder_files_list = [int(file) for file in os.listdir(folder_path)]
+    folder_files_list.sort()
+
+    return {emails_type: classify_email('{}{}'.format(folder_path, e), k)
+            for e in folder_files_list}
+
+
 # no_spam_N --> no_spam // spam_N --> spam
 def map_name_to_class(name):
     return re.sub(r'_\d+', '', name)
 
 
 if __name__ == '__main__':
-    val = classify_email(ROOT_PATH + '/python_project/split_email_folder/val'
-                                     '/no_deseado/472', 7)
+    spam = classify_emails('spam', ROOT_PATH + '/python_project'
+                                               '/split_email_folder/val'
+                                               '/no_deseado/', 7)
 
-    print(val)
+
+
+    print(spam)
