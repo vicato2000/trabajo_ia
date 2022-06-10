@@ -61,7 +61,7 @@ def classify_emails():
 
     new_vector = vector.transform(dic.values())
 
-    m_similitary = cosine_similarity(vectors, new_vector)
+    m_similitary = cosine_similarity(new_vector, vectors)
 
     dic_m_similitary = {}
     i = 0
@@ -98,8 +98,8 @@ def count_different():
 
 
 if __name__ == '__main__':
-    #print(classify_email(ROOT_PATH + '\\python_project'
-    #                                 '\\split_email_folder\\val'
-    #                                 '\\legítimo\\1'))
+    # print(classify_email(ROOT_PATH + '\\python_project'
+    #                                  '\\split_email_folder\\val'
+    #                                  '\\legítimo\\1'))
 
     print(count_different())
