@@ -1,14 +1,18 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from python_project.utils.reader import read_split_email_folder, read_email
 from sklearn.metrics.pairwise import cosine_similarity
 from python_project.tf_idf.tf_idf_knn import map_name_to_class
 from common_path import ROOT_PATH
+from matplotlib import pyplot as plt
 from pathlib import Path
 from collections import Counter
 import pickle as pk
 
 VOCABULARY_JSON = Path('python_project', 'utils', 'generated_documents',
                        'vocabulary.json')
+CONFUSION_MATRIX = Path('python_project', 'tf_idf', 'generated_documents',
+                        'confusion_matrix.png')
 
 
 def tf_idf_vector():
@@ -87,14 +91,20 @@ def classify_emails():
     return dic_class
 
 
-def count_different():
-    count = 0
-    c = classify_emails()
-    for e in c:
-        if c[e] not in e:
-            count += 1
+def generate_confusion_matrix():
+    dic_class = classify_emails()
 
-    return count
+    true = [map_name_to_class(c) for c in dic_class.keys()]
+    pred = [c for c in dic_class.values()]
+
+    matrix = confusion_matrix(y_true=true, y_pred=pred,
+                              labels=['spam', 'no_spam'])
+
+    cm_display = ConfusionMatrixDisplay(matrix,
+                                        display_labels=['spam', 'no_spam'])
+    cm_display.plot()
+    plt.show()
+    plt.savefig(ROOT_PATH + CONFUSION_MATRIX)
 
 
 if __name__ == '__main__':
@@ -102,4 +112,4 @@ if __name__ == '__main__':
     #                                  '\\split_email_folder\\val'
     #                                  '\\legítimo\\1'))
 
-    print(count_different())
+    generate_confusion_matrix()
