@@ -21,15 +21,8 @@ VAL_SPAM = Path('python_project', 'split_email_folder', 'val', 'no_deseado')
 
 
 def train_bag_of_words(k=1):
-    vocabulary_json = os.path.exists(ROOT_PATH + '{}'.format(VOCABULARY_JSON))
 
-    vocabulary_list = None
-
-    if vocabulary_json:
-        with open(ROOT_PATH + '{}'.format(VOCABULARY_JSON), 'rb') as f:
-            vocabulary_list = pk.load(f)
-    else:
-        vocabulary_list = generate_vocabulary()
+    vocabulary_list = get_vocabulary()
 
     vectorizer_no_spam = CountVectorizer(stop_words='english',
                                          vocabulary=vocabulary_list,
@@ -174,34 +167,34 @@ def get_vocabulary():
 
 
 def get_vectors_softened(k=1):
-    vector_no_spam_softened_json = Path('python_project', 'bag_of_word',
+    vector_no_spam_softened_json_path = Path('python_project', 'bag_of_word',
                                         'generated_documents',
                                         'vector_no_spam_softened_k{}.json'
                                         .format(k))
-    vector_spam_softened_json = Path('python_project', 'bag_of_word',
+    vector_spam_softened_json_path = Path('python_project', 'bag_of_word',
                                      'generated_documents',
                                      'vector_spam_softened_k{}.json'
                                      .format(k))
 
     vector_no_spam_softened_json = os.path.exists(
-        ROOT_PATH + '{}'.format(vector_no_spam_softened_json))
+        ROOT_PATH + '{}'.format(vector_no_spam_softened_json_path))
 
     vector_spam_softened_json = os.path.exists(
-        ROOT_PATH + '{}'.format(vector_spam_softened_json))
+        ROOT_PATH + '{}'.format(vector_spam_softened_json_path))
 
     vector_spam_softened = None
     vector_no_spam_softened = None
 
     if vector_spam_softened_json and vector_no_spam_softened_json:
-        with open(ROOT_PATH + '{}'.format(vector_no_spam_softened_json),
+        with open(ROOT_PATH + '{}'.format(vector_no_spam_softened_json_path),
                   'rb') as f:
             vector_no_spam_softened = pk.load(f)
 
-        with open(ROOT_PATH + '{}'.format(vector_spam_softened_json),
+        with open(ROOT_PATH + '{}'.format(vector_spam_softened_json_path),
                   'rb') as f:
             vector_spam_softened = pk.load(f)
     else:
-        vector_no_spam_softened, vector_spam_softened = train_bag_of_words()
+        vector_no_spam_softened, vector_spam_softened = train_bag_of_words(k)
 
     return vector_spam_softened, vector_no_spam_softened
 
@@ -228,5 +221,5 @@ if __name__ == '__main__':
     #                                      '\\split_email_folder\\val'
     #                                      '\\legítimo\\1'))
 
-    for k in range(1, 20):
+    for k in range(6, 20):
         generate_confusion_matrix(k)
