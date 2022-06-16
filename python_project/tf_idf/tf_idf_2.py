@@ -4,19 +4,20 @@ from python_project.utils.reader import read_split_email_folder, read_email
 from sklearn.metrics.pairwise import cosine_similarity
 from python_project.tf_idf.tf_idf_knn import map_name_to_class
 from common_path import ROOT_PATH
-from matplotlib import pyplot as plt
 from pathlib import Path
 from collections import Counter
 import pickle as pk
-import os
-
+from python_project.utils.improvements import improve
 
 VOCABULARY_JSON = Path('python_project', 'utils', 'generated_documents',
                        'vocabulary.json')
 
 
-def tf_idf_vector():
+def tf_idf_vector(improve_filter=False):
     corpus = read_split_email_folder()
+
+    if improve_filter:
+        corpus = list(map(lambda x: improve(x), corpus))
 
     vocabulary_list = None
 
@@ -32,10 +33,13 @@ def tf_idf_vector():
     return corpus, vector, vectors
 
 
-def classify_email(email_path):
+def classify_email(email_path, improve_filter=False):
     k = 7
 
     email = read_email(email_path)
+
+    if improve_filter:
+        email = improve(email)
 
     corpus, vector, vectors = tf_idf_vector()
 
@@ -56,8 +60,11 @@ def classify_email(email_path):
     return Counter(classes).most_common()[0][0]
 
 
-def classify_emails(k):
+def classify_emails(k, improve_filter=False):
     dic = read_split_email_folder(train=False)
+
+    if improve_filter:
+        dic = {e: improve(dic[e]) for e in dic.keys()}
 
     corpus, vector, vectors = tf_idf_vector()
 
@@ -89,16 +96,16 @@ def classify_emails(k):
     return dic_class
 
 
-def generate_confusion_matrix(k):
+def generate_confusion_matrix(k, improve_filter=False):
     confusion_matrix_path = Path('python_project', 'tf_idf',
                                  'generated_documents')
 
-    dic_class = classify_emails(k)
+    dic_class = classify_emails(k, improve_filter)
 
     true = [map_name_to_class(c) for c in dic_class.keys()]
     pred = [c for c in dic_class.values()]
 
-    plot_confusion_matrix(true, pred, confusion_matrix_path, k)
+    plot_confusion_matrix(true, pred, confusion_matrix_path, k, improve_filter)
 
 
 if __name__ == '__main__':
@@ -108,4 +115,4 @@ if __name__ == '__main__':
 
     for k in range(1, 20):
         if k % 2 != 0:
-            generate_confusion_matrix(k)
+            generate_confusion_matrix(k, True)

@@ -8,6 +8,7 @@ import os
 import numpy as np
 from math import log
 from python_project.utils.confusion_matrix import plot_confusion_matrix
+from python_project.utils.improvements import improve
 
 VOCABULARY_JSON = Path('python_project', 'utils', 'generated_documents',
                        'vocabulary.json')
@@ -20,8 +21,7 @@ VAL_LEGITIMO = Path('python_project', 'split_email_folder', 'val', 'legítimo')
 VAL_SPAM = Path('python_project', 'split_email_folder', 'val', 'no_deseado')
 
 
-def train_bag_of_words(k=1):
-
+def train_bag_of_words(k=1, improve_filter=False):
     vocabulary_list = get_vocabulary()
 
     vectorizer_no_spam = CountVectorizer(stop_words='english',
@@ -36,6 +36,10 @@ def train_bag_of_words(k=1):
 
     corpus_no_spam = read_emails(ROOT_PATH + '{}'.format(NO_SPAM_TRAIN_PATH))
     corpus_spam = read_emails(ROOT_PATH + '{}'.format(SPAM_TRAIN_PATH))
+
+    if improve_filter:
+        corpus_no_spam = list(map(lambda x: improve(x), corpus_no_spam))
+        corpus_spam = list(map(lambda x: improve(x), corpus_spam))
 
     matrix_no_spam = vectorizer_no_spam.fit_transform(corpus_no_spam)
     matrix_spam = vectorizer_spam.fit_transform(corpus_spam)
@@ -54,15 +58,26 @@ def train_bag_of_words(k=1):
     vector_spam_softened = list(map(lambda x: (x + k) /
                                               total_spam, vector_spam))
 
-    vector_no_spam_softened_json = Path('python_project', 'bag_of_word',
-                                        'generated_documents',
-                                        'vector_no_spam_softened_k{}.json'
-                                        .format(k))
-    vector_spam_softened_json = Path('python_project', 'bag_of_word',
-                                     'generated_documents',
-                                     'vector_spam_softened_k{}.json'
-                                     .format(k))
-
+    if not improve_filter:
+        vector_no_spam_softened_json = Path('python_project', 'bag_of_word',
+                                            'generated_documents',
+                                            'vector_no_spam_softened_k{}.json'
+                                            .format(k))
+        vector_spam_softened_json = Path('python_project', 'bag_of_word',
+                                         'generated_documents',
+                                         'vector_spam_softened_k{}.json'
+                                         .format(k))
+    else:
+        vector_no_spam_softened_json = Path('python_project', 'bag_of_word',
+                                            'generated_documents',
+                                            'vector_no_spam_softened_k{}'
+                                            '_improve_filter.json'
+                                            .format(k))
+        vector_spam_softened_json = Path('python_project', 'bag_of_word',
+                                         'generated_documents',
+                                         'vector_spam_softened_k{}'
+                                         '_improve_filter.json'
+                                         .format(k))
     with open(ROOT_PATH + '{}'.format(vector_no_spam_softened_json),
               'wb') as f:
         pk.dump(vector_no_spam_softened, f)
@@ -73,8 +88,11 @@ def train_bag_of_words(k=1):
     return vector_no_spam_softened, vector_spam_softened
 
 
-def classify_email_bow(email_path):
+def classify_email_bow(email_path, improve_filter=False):
     email = read_email(email_path)
+
+    if improve_filter:
+        email = improve(email)
 
     vector_spam_softened, vector_no_spam_softened = get_vectors_softened()
 
@@ -109,10 +127,14 @@ def classify_email_bow(email_path):
     return 'spam' if p_spam > p_no_spam else 'no_spam'
 
 
-def classify_emails_bow(folder_path, k=1):
+def classify_emails_bow(folder_path, k=1, improve_filter=False):
     emails = read_emails(folder_path)
 
-    vector_spam_softened, vector_no_spam_softened = get_vectors_softened(k)
+    if improve_filter:
+        emails = list(map(lambda x: improve(x), emails))
+
+    vector_spam_softened, vector_no_spam_softened = \
+        get_vectors_softened(k, improve_filter)
 
     vocabulary_list = get_vocabulary()
 
@@ -166,15 +188,29 @@ def get_vocabulary():
     return vocabulary_list
 
 
-def get_vectors_softened(k=1):
-    vector_no_spam_softened_json_path = Path('python_project', 'bag_of_word',
-                                        'generated_documents',
-                                        'vector_no_spam_softened_k{}.json'
-                                        .format(k))
-    vector_spam_softened_json_path = Path('python_project', 'bag_of_word',
-                                     'generated_documents',
-                                     'vector_spam_softened_k{}.json'
-                                     .format(k))
+def get_vectors_softened(k=1, improve_filter=False):
+    if not improve_filter:
+        vector_no_spam_softened_json_path = Path('python_project',
+                                                 'bag_of_word',
+                                                 'generated_documents',
+                                                 'vector_no_spam_softened_k{}'
+                                                 '.json'.format(k))
+        vector_spam_softened_json_path = Path('python_project', 'bag_of_word',
+                                              'generated_documents',
+                                              'vector_spam_softened_k{}.json'
+                                              .format(k))
+    else:
+        vector_no_spam_softened_json_path = Path('python_project',
+                                                 'bag_of_word',
+                                                 'generated_documents',
+                                                 'vector_no_spam_softened_k{}'
+                                                 '_improve_filter.json'
+                                                 .format(k))
+        vector_spam_softened_json_path = Path('python_project', 'bag_of_word',
+                                              'generated_documents',
+                                              'vector_spam_softened_k{}'
+                                              '_improve_filter.json'
+                                              .format(k))
 
     vector_no_spam_softened_json = os.path.exists(
         ROOT_PATH + '{}'.format(vector_no_spam_softened_json_path))
@@ -194,26 +230,28 @@ def get_vectors_softened(k=1):
                   'rb') as f:
             vector_spam_softened = pk.load(f)
     else:
-        vector_no_spam_softened, vector_spam_softened = train_bag_of_words(k)
+        vector_no_spam_softened, vector_spam_softened = \
+            train_bag_of_words(k, improve_filter)
 
     return vector_spam_softened, vector_no_spam_softened
 
 
-def generate_confusion_matrix(k=1):
+def generate_confusion_matrix(k=1, improve_filter=False):
     confusion_matrix_path = Path('python_project', 'bag_of_word',
                                  'generated_documents')
 
-    pred_spam = classify_emails_bow(ROOT_PATH + '{}'.format(VAL_SPAM), k)
+    pred_spam = classify_emails_bow(ROOT_PATH + '{}'.format(VAL_SPAM), k,
+                                    improve_filter)
     true_spam = ['spam' for i in range(len(pred_spam))]
 
     pred_no_spam = classify_emails_bow(ROOT_PATH + '{}'.format(VAL_LEGITIMO),
-                                       k)
+                                       k, improve_filter)
     true_no_spam = ['no_spam' for i in range(len(pred_no_spam))]
 
     pred = pred_spam + pred_no_spam
     true = true_spam + true_no_spam
 
-    plot_confusion_matrix(true, pred, confusion_matrix_path, k)
+    plot_confusion_matrix(true, pred, confusion_matrix_path, k, improve_filter)
 
 
 if __name__ == '__main__':
@@ -221,5 +259,5 @@ if __name__ == '__main__':
     #                                      '\\split_email_folder\\val'
     #                                      '\\legítimo\\1'))
 
-    for k in range(6, 20):
-        generate_confusion_matrix(k)
+    for k in range(1, 20):
+        generate_confusion_matrix(k, True)
