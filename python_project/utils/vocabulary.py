@@ -5,12 +5,15 @@ import os
 from common_path import ROOT_PATH
 import pickle as pk
 from pathlib import Path
+from python_project.utils.improvements import *
 
-ENRON_SPAM_LEGITIMO_PATH = Path('Enron-Spam', 'legítimo')
+ENRON_SPAM_LEGITIMO_PATH = Path('python_project', 'split_email_folder',
+                                'train', 'legítimo')
 READ_EMAILS_LEGITIMO_TXT = Path('python_project', 'utils',
                                 'generated_documents',
                                 'read_emails_legítimo.txt')
-ENRON_SPAM_NO_DESEADO_PATH = Path('Enron-Spam', 'no_deseado')
+ENRON_SPAM_NO_DESEADO_PATH = Path('python_project', 'split_email_folder',
+                                  'train', 'no_deseado')
 READ_EMAILS_NO_DESEADO_TXT = Path('python_project', 'utils',
                                   'generated_documents',
                                   'read_emails_no_deseado.txt')
@@ -40,7 +43,10 @@ def generate_vocabulary():
         if bool(re.search(r'\W|\d|-|_', e)):
             vocabulary.remove(e)
 
-    result.update(set(v.lower() for v in vocabulary))
+    vocabulary_clean = list(filter(str.isalnum, vocabulary))
+    vocabulary_clean = replace_numbers(vocabulary_clean)
+
+    result.update(set(v.lower() for v in vocabulary_clean))
 
     with open(ROOT_PATH + '{}'.format(VOCABULARY_JSON), 'wb') as f:
         pk.dump(result, f)
@@ -64,3 +70,19 @@ def email_vocabulary(file_email_in, file_out):
               encoding='utf-8') as f:
 
         f.write(file)
+
+
+def get_vocabulary():
+    vocabulary_json = os.path.exists(ROOT_PATH + '{}'.format(VOCABULARY_JSON))
+
+    vocabulary_list = None
+
+    if vocabulary_json:
+        with open(ROOT_PATH + '{}'.format(VOCABULARY_JSON), 'rb') as f:
+            vocabulary_list = pk.load(f)
+    else:
+        vocabulary_list = generate_vocabulary()
+
+    sorted(vocabulary_list)
+
+    return vocabulary_list

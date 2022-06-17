@@ -7,6 +7,7 @@ import unicodedata
 from python_project.utils.clean_email import *
 
 download('punkt', download_dir='.')
+download('stopwords')
 
 
 def tokenize(text):
@@ -50,7 +51,6 @@ def replace_numbers(words):
     new_words = []
     for word in words:
         if word.isdigit() and len(word) <= 20:
-            print(word)
             new_word = p.number_to_words(word)
             new_words.append(new_word)
         else:

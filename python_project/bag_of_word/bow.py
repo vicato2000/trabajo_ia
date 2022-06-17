@@ -1,6 +1,6 @@
 from sklearn.feature_extraction.text import CountVectorizer
 from python_project.utils.reader import read_emails, read_email
-from python_project.utils.vocabulary import generate_vocabulary
+from python_project.utils.vocabulary import get_vocabulary
 from common_path import ROOT_PATH
 from pathlib import Path
 import pickle as pk
@@ -170,22 +170,6 @@ def classify_emails_bow(folder_path, k=1, improve_filter=False):
         result.append('spam' if p_spam > p_no_spam else 'no_spam')
 
     return result
-
-
-def get_vocabulary():
-    vocabulary_json = os.path.exists(ROOT_PATH + '{}'.format(VOCABULARY_JSON))
-
-    vocabulary_list = None
-
-    if vocabulary_json:
-        with open(ROOT_PATH + '{}'.format(VOCABULARY_JSON), 'rb') as f:
-            vocabulary_list = pk.load(f)
-    else:
-        vocabulary_list = generate_vocabulary()
-
-    sorted(vocabulary_list)
-
-    return vocabulary_list
 
 
 def get_vectors_softened(k=1, improve_filter=False):

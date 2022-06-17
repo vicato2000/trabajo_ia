@@ -1,3 +1,4 @@
+import os.path
 from sklearn.feature_extraction.text import TfidfVectorizer
 from python_project.utils.confusion_matrix import plot_confusion_matrix
 from python_project.utils.reader import read_split_email_folder, read_email
@@ -8,40 +9,71 @@ from pathlib import Path
 from collections import Counter
 import pickle as pk
 from python_project.utils.improvements import improve
+import re
+from python_project.utils.vocabulary import get_vocabulary
 
 VOCABULARY_JSON = Path('python_project', 'utils', 'generated_documents',
                        'vocabulary.json')
 
+TF_IDF_VECTOR_JSON = Path('python_project', 'tf_idf', 'generated_documents',
+                          'tf_idf_vector.json')
+
+TF_IDF_VECTORS_JSON = Path('python_project', 'tf_idf',
+                           'generated_documents',
+                           'tf_idf_vectors.json')
+
+TF_IDF_VECTOR_JSON_IMPROVED = Path('python_project', 'tf_idf',
+                                   'generated_documents',
+                                   'tf_idf_vector_improved.json')
+
+TF_IDF_VECTORS_JSON_IMPROVED = Path('python_project', 'tf_idf',
+                                    'generated_documents',
+                                    'tf_idf_vectors'
+                                    '_improved.json')
+
 
 def tf_idf_vector(improve_filter=False):
-    corpus = read_split_email_folder()
+    corpus = get_corpus()
 
-    if improve_filter:
-        corpus = list(map(lambda x: improve(x), corpus))
-
-    vocabulary_list = None
-
-    with open(ROOT_PATH + '{}'.format(VOCABULARY_JSON), 'rb') as f:
-        vocabulary_list = pk.load(f)
+    vocabulary_list = get_vocabulary()
 
     vector = TfidfVectorizer(vocabulary=vocabulary_list,
                              stop_words='english',
                              lowercase=True)
+    if improve_filter:
+        corpus = {e: improve(corpus[e]) for e in corpus}
 
-    vectors = vector.fit_transform(corpus.values())
+        vectors = vector.fit_transform(corpus.values())
 
-    return corpus, vector, vectors
+        with open(ROOT_PATH + '{}'.format(TF_IDF_VECTOR_JSON_IMPROVED), 'wb') \
+                as f:
+            pk.dump(vector, f)
+
+        with open(ROOT_PATH +
+                  '{}'.format(TF_IDF_VECTORS_JSON_IMPROVED), 'wb') \
+                as f:
+            pk.dump(vectors, f)
+    else:
+        vectors = vector.fit_transform(corpus.values())
+
+        with open(ROOT_PATH + '{}'.format(TF_IDF_VECTOR_JSON), 'wb') as f:
+            pk.dump(vector, f)
+
+        with open(ROOT_PATH + '{}'.format(TF_IDF_VECTORS_JSON), 'wb') \
+                as f:
+            pk.dump(vectors, f)
+
+    return vector, vectors
 
 
-def classify_email(email_path, improve_filter=False):
-    k = 7
-
+def classify_email(email_path, k=7, improve_filter=False):
     email = read_email(email_path)
 
     if improve_filter:
         email = improve(email)
 
-    corpus, vector, vectors = tf_idf_vector()
+    vector, vectors = get_tf_idf_vector()
+    corpus = get_corpus()
 
     new_vector = vector.transform([email])
 
@@ -60,13 +92,14 @@ def classify_email(email_path, improve_filter=False):
     return Counter(classes).most_common()[0][0]
 
 
-def classify_emails(k, improve_filter=False):
+def classify_emails(k=7, improve_filter=False):
     dic = read_split_email_folder(train=False)
 
     if improve_filter:
         dic = {e: improve(dic[e]) for e in dic.keys()}
 
-    corpus, vector, vectors = tf_idf_vector()
+    vector, vectors = get_tf_idf_vector(improve_filter)
+    corpus = get_corpus()
 
     new_vector = vector.transform(dic.values())
 
@@ -108,11 +141,54 @@ def generate_confusion_matrix(k, improve_filter=False):
     plot_confusion_matrix(true, pred, confusion_matrix_path, k, improve_filter)
 
 
+def get_tf_idf_vector(improve_filter=False):
+    if improve_filter:
+        vector_path = os.path \
+            .exists(ROOT_PATH + '{}'.format(TF_IDF_VECTOR_JSON_IMPROVED))
+        vectors_path = os.path \
+            .exists(ROOT_PATH + '{}'
+                    .format(TF_IDF_VECTORS_JSON_IMPROVED))
+
+        if vector_path and vectors_path:
+            with open(ROOT_PATH + '{}'.format(TF_IDF_VECTORS_JSON_IMPROVED),
+                      'rb') as f:
+                vectors = pk.load(f)
+            with open(ROOT_PATH + '{}'.format(TF_IDF_VECTOR_JSON_IMPROVED),
+                      'rb') as f:
+                vector = pk.load(f)
+        else:
+            vector, vectors = tf_idf_vector(improve_filter)
+    else:
+        vector_path = os.path.exists(
+            ROOT_PATH + '{}'.format(TF_IDF_VECTOR_JSON))
+        vectors_path = os.path.exists(
+            ROOT_PATH + '{}'.format(TF_IDF_VECTORS_JSON))
+
+        if vector_path and vectors_path:
+            with open(ROOT_PATH + '{}'.format(TF_IDF_VECTORS_JSON), 'rb') as f:
+                vectors = pk.load(f)
+            with open(ROOT_PATH + '{}'.format(TF_IDF_VECTOR_JSON), 'rb') as f:
+                vector = pk.load(f)
+        else:
+            vector, vectors = tf_idf_vector(improve_filter)
+
+    return vector, vectors
+
+
+def get_corpus():
+    return read_split_email_folder()
+
+
+# no_spam_N --> no_spam // spam_N --> spam
+def map_name_to_class(name):
+    return re.sub(r'_\d+', '', name)
+
+
 if __name__ == '__main__':
     # print(classify_email(ROOT_PATH + '\\python_project'
     #                                  '\\split_email_folder\\val'
     #                                  '\\legítimo\\1'))
 
-    for k in range(1, 20):
+    for k in range(2, 20):
         if k % 2 != 0:
-            generate_confusion_matrix(k, True)
+            generate_confusion_matrix(k)
