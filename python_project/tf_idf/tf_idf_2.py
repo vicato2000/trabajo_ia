@@ -33,9 +33,9 @@ TF_IDF_VECTORS_JSON_IMPROVED = Path('python_project', 'tf_idf',
 
 
 def tf_idf_vector(improve_filter=False):
-    corpus = get_corpus()
+    corpus = get_corpus(True, improve_filter)
 
-    vocabulary_list = get_vocabulary()
+    vocabulary_list = get_vocabulary(improve_filter)
 
     vector = TfidfVectorizer(vocabulary=vocabulary_list,
                              stop_words='english',
@@ -73,7 +73,7 @@ def classify_email(email_path, k=7, improve_filter=False):
         email = improve(email)
 
     vector, vectors = get_tf_idf_vector()
-    corpus = get_corpus()
+    corpus = get_corpus(True, improve_filter)
 
     new_vector = vector.transform([email])
 
@@ -93,13 +93,13 @@ def classify_email(email_path, k=7, improve_filter=False):
 
 
 def classify_emails(k=7, improve_filter=False):
-    dic = read_split_email_folder(train=False)
+    dic = get_corpus(False, improve_filter)
 
     if improve_filter:
         dic = {e: improve(dic[e]) for e in dic.keys()}
 
     vector, vectors = get_tf_idf_vector(improve_filter)
-    corpus = get_corpus()
+    corpus = get_corpus(True, improve_filter)
 
     new_vector = vector.transform(dic.values())
 
@@ -175,8 +175,8 @@ def get_tf_idf_vector(improve_filter=False):
     return vector, vectors
 
 
-def get_corpus():
-    return read_split_email_folder()
+def get_corpus(train=True, improve_filter=False):
+    return read_split_email_folder(train, improve_filter)
 
 
 # no_spam_N --> no_spam // spam_N --> spam
@@ -189,6 +189,6 @@ if __name__ == '__main__':
     #                                  '\\split_email_folder\\val'
     #                                  '\\legítimo\\1'))
 
-    for k in range(2, 20):
+    for k in range(1, 20):
         if k % 2 != 0:
             generate_confusion_matrix(k)

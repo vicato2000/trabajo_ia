@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.12)  17 JUN 2022 11:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.12)  18 JUN 2022 12:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -625,20 +625,14 @@ Before submitting the final camera ready copy, remember to:
 
 LaTeX Warning: There were undefined references.
 
-
-Package rerunfilecheck Warning: File `"Artículo Científico".out' has changed.
-
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `"Artículo Científico".out':
-(rerunfilecheck)             Before: 12001C0C8E4BCE885C6D270C52CDC413;2104
-(rerunfilecheck)             After:  DC4CC8DD00C512624F07484D9BDC3670;2091.
+Package rerunfilecheck Info: File `"Artículo Científico".out' has not changed
+.
+(rerunfilecheck)             Checksum: DC4CC8DD00C512624F07484D9BDC3670;2091.
  ) 
 Here is how much of TeX's memory you used:
  10956 strings out of 478582
  179078 string characters out of 2844344
- 493556 words of memory out of 3000000
+ 493589 words of memory out of 3000000
  28958 multiletter control sequences out of 15000+600000
  505827 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191

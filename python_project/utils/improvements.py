@@ -1,13 +1,35 @@
-import nltk
-from nltk import WordNetLemmatizer, LancasterStemmer, download
-from nltk.corpus import stopwords
-import re
-import inflect
 import unicodedata
-from python_project.utils.clean_email import *
+import nltk
+import inflect
+from nltk.corpus import stopwords
+from nltk.stem import LancasterStemmer, WordNetLemmatizer
+from bs4 import BeautifulSoup
+import re
+import contractions
 
-download('punkt', download_dir='.')
-download('stopwords')
+nltk.download('punkt', download_dir='.')
+nltk.download('stopwords', download_dir='.')
+
+
+def strip_html(text):
+    soup = BeautifulSoup(text, "html.parser")
+    return soup.get_text()
+
+
+def remove_between_square_brackets(text):
+    return re.sub('\[[^]]*\]', '', text)
+
+
+def replace_contractions(text):
+    """Replace contractions in string of text"""
+    return contractions.fix(text)
+
+
+def denoise_text(text):
+    text = strip_html(text)
+    text = replace_contractions(text)
+    text = remove_between_square_brackets(text)
+    return text
 
 
 def tokenize(text):
