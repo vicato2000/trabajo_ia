@@ -272,5 +272,5 @@ if __name__ == '__main__':
     #                                      '\\split_email_folder\\val'
     #                                      '\\legítimo\\1'))
 
-    for k in range(1, 20):
+    for k in range(12, 20):
         generate_confusion_matrix(k)

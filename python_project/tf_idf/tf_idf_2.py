@@ -1,7 +1,7 @@
 import os.path
 from sklearn.feature_extraction.text import TfidfVectorizer
 from python_project.utils.confusion_matrix import plot_confusion_matrix
-from python_project.utils.reader import read_split_email_folder, read_email
+from python_project.utils.reader import get_dic_train_email, read_email
 from sklearn.metrics.pairwise import cosine_similarity
 from python_project.tf_idf.tf_idf_knn import map_name_to_class
 from common_path import ROOT_PATH
@@ -176,7 +176,7 @@ def get_tf_idf_vector(improve_filter=False):
 
 
 def get_corpus(train=True, improve_filter=False):
-    return read_split_email_folder(train, improve_filter)
+    return get_dic_train_email(train, improve_filter)
 
 
 # no_spam_N --> no_spam // spam_N --> spam
@@ -191,4 +191,4 @@ if __name__ == '__main__':
 
     for k in range(1, 20):
         if k % 2 != 0:
-            generate_confusion_matrix(k)
+            generate_confusion_matrix(k, True)
