@@ -38,6 +38,17 @@ VOCABULARY_IMPROVED_JSON = Path('python_project', 'utils',
 
 
 def generate_vocabulary(improve_filter=False):
+
+    """
+    Función que te genera y devuelve el conjunto del vocabulario a partir del
+    conjunto de entrenamiento
+
+    :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
+        encuentra a False.
+    :return: El conjunto del vocabulario.
+    :rtype: set[str]
+    """
+
     result = set()
 
     vocabulary = set()
@@ -99,6 +110,18 @@ def generate_vocabulary(improve_filter=False):
 
 
 def email_vocabulary(file_email_in, file_out, improved_filter=False):
+
+    """
+    Función que lee todos los correos de una carpeta y los concatena en un
+    mismo archivo txt.
+
+    :param str file_email_in: Ruta de la carpeta donde se encuentran los
+        correos.
+    :param str file_out: Ruta del fichero donde se van a escribir los correos.
+    :param bool improved_filter: Usar o no técnicas de mejoras. Por defecto se
+        encuentra a False.
+    """
+
     email_list = read_emails(file_email_in)
 
     file = ''
@@ -108,10 +131,6 @@ def email_vocabulary(file_email_in, file_out, improved_filter=False):
             file += '{}'.format(i) + '\n'
         else:
             file += '{}'.format(improve(i)) + '\n'
-
-    #
-    # for i in range(0, len(email_list) - 1):
-    #     file += '{}'.format(denoise_text('{}'.format(email_list[i]))) + '\n'
 
     if os.path.exists(file_out):
         os.remove(file_out)
@@ -124,7 +143,19 @@ def email_vocabulary(file_email_in, file_out, improved_filter=False):
 
 
 def get_vocabulary(improve_filter=False):
-    vocabulary_list = None
+
+    """
+    Función que devuelve el vocabulario, comprobando primero si ya se ha creado
+    previamente, leyéndolo en el caso de que si se haya creado o, en otro caso,
+    llamando a la función generate_vocabulary para generarlo.
+
+    :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
+        encuentra a False.
+    :return: Un con el vocabulario.
+    :rtype: set[str]
+    """
+
+    vocabulary_set = None
 
     if improve_filter:
         vocabulary_json = os.path.exists(
@@ -133,19 +164,19 @@ def get_vocabulary(improve_filter=False):
         if vocabulary_json:
             with open(ROOT_PATH + '{}'.format(VOCABULARY_IMPROVED_JSON), 'rb') \
                     as f:
-                vocabulary_list = pk.load(f)
+                vocabulary_set = pk.load(f)
         else:
-            vocabulary_list = generate_vocabulary(improve_filter)
+            vocabulary_set = generate_vocabulary(improve_filter)
 
     else:
         vocabulary_json = os.path.exists(ROOT_PATH +
                                          '{}'.format(VOCABULARY_JSON))
         if vocabulary_json:
             with open(ROOT_PATH + '{}'.format(VOCABULARY_JSON), 'rb') as f:
-                vocabulary_list = pk.load(f)
+                vocabulary_set = pk.load(f)
         else:
-            vocabulary_list = generate_vocabulary(improve_filter)
+            vocabulary_set = generate_vocabulary(improve_filter)
 
-    sorted(vocabulary_list)
+    sorted(vocabulary_set)
 
-    return vocabulary_list
+    return vocabulary_set

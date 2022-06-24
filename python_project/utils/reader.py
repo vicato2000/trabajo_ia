@@ -32,6 +32,16 @@ DICT_VAL_EMAIL_IMPROVE_PATH = Path('python_project', 'utils',
 
 
 def read_email(email_path):
+
+    """
+    Función que lee el cuerpo.
+
+    :param str email_path: Ruta del email.
+    :return: Cadena de texto con el cuerpo del email, en el caso de ser
+        multipar devuelve todas las partes concatenadas.
+    :rtype: str
+    """
+
     with open(email_path, 'r', encoding='utf-8', errors='ignore') as email:
         msg = em.message_from_string(email.read(), policy=default)
 
@@ -52,6 +62,17 @@ def read_email(email_path):
 
 
 def read_emails(emails_folder_path):
+
+    """
+    Función que lee todos los cuerpos de los emails que se encuentran en una
+    carpeta.
+
+    :param str emails_folder_path: Ruta de la carpeta donde se encuentran los
+        correos que se quieren leer.
+    :return: Lista compuesta por los cuerpos de los mensajes.
+    :rtype: list[str]
+    """
+
     folder_files_list = [int(file) for file in os.listdir(emails_folder_path)]
     folder_files_list.sort()
 
@@ -60,6 +81,20 @@ def read_emails(emails_folder_path):
 
 
 def read_split_email_folder(path_legitimo, path_spam):
+
+    """
+    Función que lee cuerpos de los emails de dos carpetas. Se usa para leer
+    todos los emails de entrenamiento o de los de prueba.
+
+    :param str path_legitimo: Ruta de la carpeta donde se encuentren los emails
+        legítimos.
+    :param str path_spam: Ruta de la carpeta donde se encuentren los emails
+        no_deseados.
+    :return: Diccionario donde la clave es la clase correcta a la que
+        pertenece ese email, spam o no_spam, y el valor es el cuerpo del email.
+    :rtype: dict[str,str]
+    """
+
     result = {}
 
     email_no_spam = read_emails(path_legitimo)
@@ -74,6 +109,20 @@ def read_split_email_folder(path_legitimo, path_spam):
 
 
 def get_dic_train_email(train=True, improve_filter=False):
+
+    """
+    Función que genera o lee los cuerpos de los emails de entrenamiento o de
+    prueba dependiendo de si existen previamente su archivo json o no.
+
+    :param bool train: Indica si tiene que leer la carpeta de entrenamiento o
+        la carpeta de prueba. Por defecto se lee la de entrenamiento.
+    :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
+        encuentra a False.
+    :return: Diccionario donde la clave es la clase correcta a la que
+        pertenece ese email, spam o no_spam, y el valor es el cuerpo del email.
+    :rtype: dict[str,str]
+    """
+
     if improve_filter:
         if train:
             path_legitimo = ROOT_PATH + '{}'.format(TRAIN_LEGITIMO)

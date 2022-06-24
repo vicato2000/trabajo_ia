@@ -11,6 +11,8 @@ nltk.download('punkt', download_dir='.')
 nltk.download('stopwords', download_dir='.')
 
 
+# Eliminación de ruido
+
 def strip_html(text):
     soup = BeautifulSoup(text, "html.parser")
     return soup.get_text()
@@ -21,7 +23,13 @@ def remove_between_square_brackets(text):
 
 
 def replace_contractions(text):
-    """Replace contractions in string of text"""
+    """
+    Función que reemplaza las contracciones del inglés.
+
+    :param str text: Cadena de texto de entrada.
+    :return: La cadena de texto sin contracciones.
+    :rtype: str
+    """
     return contractions.fix(text)
 
 
@@ -32,23 +40,45 @@ def denoise_text(text):
     return text
 
 
+# Tokenización
+
 def tokenize(text):
     return nltk.word_tokenize(text)
 
 
+# Normalización
+
 def remove_non_ascii(words):
-    """Remove non-ASCII characters from list of tokenized words"""
+
+    """
+    Función que elimina los caracteres no ASCII.
+
+    :param list[str] words: Lista de palabras tokenizadas.
+    :return: Lista de palabras tokenizadas sin caracteres no ASCII.
+    :rtype: list[str]
+    """
+
     new_words = []
     for word in words:
-        new_word = unicodedata.normalize('NFKD', word)\
-            .encode('ascii', 'ignore')\
+        new_word = unicodedata.normalize('NFKD', word) \
+            .encode('ascii', 'ignore') \
             .decode('utf-8', 'ignore')
         new_words.append(new_word)
     return new_words
 
 
 def to_lowercase(words):
-    """Convert all characters to lowercase from list of tokenized words"""
+
+    """
+    Funcion que convierte todos los caracteres a minuscula de una lista de
+    palabras tokenizadas.
+
+    :param list[str] words: Lista de palabras tokenizadas.
+    :return: Lista de palabras tokenizadas con todos sus caracteres en
+    minúscula.
+    :rtype: list[str]
+    """
+
     new_words = []
     for word in words:
         new_word = word.lower()
@@ -57,7 +87,16 @@ def to_lowercase(words):
 
 
 def remove_punctuation(words):
-    """Remove punctuation from list of tokenized words"""
+
+    """
+    Función que elimina los signos de puntuación de una lista de palabras
+    tokenizadas.
+
+    :param list[str] words: Lista de palabras tokenizadas.
+    :return: Lista de palabras tokenizadas sin signos de puntuación.
+    :rtype: list[str]
+    """
+
     new_words = []
     for word in words:
         new_word = re.sub(r'[^\w\s]', '', word)
@@ -67,8 +106,17 @@ def remove_punctuation(words):
 
 
 def replace_numbers(words):
-    """Replace all interger occurrences in list of tokenized words with
-    textual representation """
+
+    """
+    Función que reemplaza las ocurrencias de números enteros, de no más de
+    20 dígitos, de una lista de palabras tokenizadas en su representación
+    textual.
+
+    :param list[str] words: Lista de palabras tokenizadas.
+    :return: Lista de palabras tokenizadas.
+    :rtype: list[str]
+    """
+
     p = inflect.engine()
     new_words = []
     for word in words:
@@ -81,7 +129,15 @@ def replace_numbers(words):
 
 
 def remove_stopwords(words):
-    """Remove stop words from list of tokenized words"""
+
+    """
+    Función que elimina las 'stop words' de una lista de palabras tokenizadas.
+
+    :param list[str] words: Lista de palabras tokenizadas.
+    :return: Lista de palabras tokenizadas sin las 'stop words'.
+    :rtype: list[str]
+    """
+
     new_words = []
     for word in words:
         if word not in stopwords.words('english'):
@@ -90,7 +146,15 @@ def remove_stopwords(words):
 
 
 def stem_words(words):
-    """Stem words in list of tokenized words"""
+
+    """
+    Función que radicaliza (stemming) las palabras de una lista tokenizada.
+
+    :param list[str] words: Lista de palabras tokenizadas.
+    :return: Lista de palabras tokenizadas.
+    :rtype: list[str]
+    """
+
     stemmer = LancasterStemmer()
     stems = []
     for word in words:
@@ -100,7 +164,14 @@ def stem_words(words):
 
 
 def lemmatize_verbs(words):
-    """Lemmatize verbs in list of tokenized words"""
+    """
+       Función que lematiza los verbos de una lista tokenizada.
+
+       :param list[str] words: Lista de palabras tokenizadas.
+       :return: Lista de palabras tokenizadas.
+       :rtype: list[str]
+       """
+
     lemmatizer = WordNetLemmatizer()
     lemmas = []
     for word in words:
