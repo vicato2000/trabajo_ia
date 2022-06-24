@@ -6,6 +6,18 @@ import os
 
 def plot_confusion_matrix(true, pred, confusion_matrix_path, k,
                           improve_filter=False):
+    """
+    Función que muestra y guarda una matriz de confusión.
+
+    :param list true: Lista de elementos correctamente clasificados.
+    :param list pred: Lista de elementos supuestamente bien clasificados.
+    :param str confusion_matrix_path: Ruta donde se va a guardar la imagen con
+    la matriz de confusión.
+    :param int k: Valor del hiperparámetro de suavizado o de KNN.
+    :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
+    encuentra a False.
+    """
+
     matrix = confusion_matrix(y_true=true, y_pred=pred,
                               labels=['spam', 'no_spam'])
 
@@ -22,5 +34,5 @@ def plot_confusion_matrix(true, pred, confusion_matrix_path, k,
     else:
         plt.savefig(
             '{}{}{}confusion_matrix_k{}_improve_filter'
-                .format(ROOT_PATH, confusion_matrix_path, os.path.sep, k))
+            .format(ROOT_PATH, confusion_matrix_path, os.path.sep, k))
     plt.show()

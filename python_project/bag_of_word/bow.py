@@ -25,6 +25,17 @@ VAL_SPAM = Path('python_project', 'split_email_folder', 'val', 'no_deseado')
 
 
 def train_bag_of_words(k=1, improve_filter=False):
+
+    """
+    Función que entrena al modelo de Bolsa de Palabras.
+
+    :param int k: Hiperparámetro de suavizado. Por defecto es 1.
+    :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
+        encuentra a False.
+    :return: Una tupla que contiene los pesos del modelo entrenado con el
+        conjunto de entrenamiento spam y no spam
+    """
+
     vocabulary_list = get_vocabulary(improve_filter)
 
     vectorizer_no_spam = CountVectorizer(stop_words='english',
@@ -43,13 +54,6 @@ def train_bag_of_words(k=1, improve_filter=False):
                       if e.startswith('no_spam')]
     corpus_spam = [dic_corpus[e] for e in dic_corpus.keys()
                    if e.startswith('spam')]
-
-    # corpus_no_spam = read_emails(ROOT_PATH + '{}'.format(NO_SPAM_TRAIN_PATH))
-    # corpus_spam = read_emails(ROOT_PATH + '{}'.format(SPAM_TRAIN_PATH))
-
-    # if improve_filter:
-    #     corpus_no_spam = list(map(lambda x: improve(x), corpus_no_spam))
-    #     corpus_spam = list(map(lambda x: improve(x), corpus_spam))
 
     matrix_no_spam = vectorizer_no_spam.fit_transform(corpus_no_spam)
     matrix_spam = vectorizer_spam.fit_transform(corpus_spam)
@@ -98,13 +102,25 @@ def train_bag_of_words(k=1, improve_filter=False):
     return vector_no_spam_softened, vector_spam_softened
 
 
-def classify_email_bow(email_path, improve_filter=False):
+def classify_email_bow(email_path, k=1, improve_filter=False):
+
+    """
+    Función que clasifica un email como spam o no_spam.
+
+    :param str email_path: Ruta donde se encuentra el email a clasificar.
+    :param int k: Hiperparámetro de suavizado.
+    :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
+        encuentra a False.
+    :return: La clase en la que se ha clasificado.
+    """
+
     email = read_email(email_path)
 
     if improve_filter:
         email = improve(email)
 
-    vector_spam_softened, vector_no_spam_softened = get_vectors_softened()
+    vector_spam_softened, vector_no_spam_softened = \
+        get_vectors_softened(k, improve_filter)
 
     vocabulary_list = get_vocabulary(improve_filter)
 
@@ -139,6 +155,20 @@ def classify_email_bow(email_path, improve_filter=False):
 
 def classify_emails_bow(folder_path, val_emails=None, k=1,
                         improve_filter=False):
+
+    """
+    Función que clasifica los emails de prueba como spam o no_spam.
+
+    :param str folder_path: Ruta de la carpeta a clasificar. Se usaría en el
+        caso de que val_emails fuera None
+    :param list[str] val_emails: Lista cuerpos de emails a clasificar. Por
+        defecto es None.
+    :param int k: Hiperparámetro de suavizado.
+    :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
+        encuentra a False.
+    :return: Lista con las clases en las que se ha clasificado los emails.
+    """
+
     emails = None
 
     if val_emails is None:
@@ -186,6 +216,14 @@ def classify_emails_bow(folder_path, val_emails=None, k=1,
 
 
 def get_vectors_softened(k=1, improve_filter=False):
+
+    """
+
+    :param k:
+    :param improve_filter:
+    :return:
+    """
+
     if not improve_filter:
         vector_no_spam_softened_json_path = Path('python_project',
                                                  'bag_of_word',
@@ -237,9 +275,6 @@ def generate_confusion_matrix(k=1, improve_filter=False):
     confusion_matrix_path = Path('python_project', 'bag_of_word',
                                  'generated_documents')
 
-    # pred_spam = classify_emails_bow(ROOT_PATH + '{}'.format(VAL_SPAM), k,
-    #                                 improve_filter)
-
     dic_emails = get_corpus(False, improve_filter)
 
     list_spam_emails = [dic_emails[e] for e in dic_emails.keys()
@@ -248,8 +283,6 @@ def generate_confusion_matrix(k=1, improve_filter=False):
     pred_spam = classify_emails_bow('', list_spam_emails, k, improve_filter)
     true_spam = ['spam' for i in range(len(pred_spam))]
 
-    # pred_no_spam = classify_emails_bow(ROOT_PATH + '{}'.format(VAL_LEGITIMO),
-    #                                    k, improve_filter)
     list_no_spam_emails = [dic_emails[e] for e in dic_emails.keys()
                     if e.startswith('no_spam')]
 
@@ -268,9 +301,9 @@ def get_corpus(train=True, improve_filter=False):
 
 
 if __name__ == '__main__':
-    # print(classify_email_bow(ROOT_PATH + '\\python_project'
-    #                                      '\\split_email_folder\\val'
-    #                                      '\\legítimo\\1'))
+    print(classify_email_bow(ROOT_PATH + '\\python_project'
+                                         '\\split_email_folder\\val'
+                                         '\\no_deseado\\7'))
 
-    for k in range(12, 20):
-        generate_confusion_matrix(k)
+    # for k in range(12, 20):
+    #     generate_confusion_matrix(k)
