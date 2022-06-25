@@ -41,7 +41,7 @@ def generate_vocabulary(improve_filter=False):
 
     """
     Función que te genera y devuelve el conjunto del vocabulario a partir del
-    conjunto de entrenamiento
+    conjunto de entrenamiento.
 
     :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
         encuentra a False.

@@ -1,5 +1,3 @@
-import re
-
 from sklearn.feature_extraction.text import CountVectorizer
 from python_project.utils.reader import read_emails, read_email, \
     get_dic_train_email
@@ -25,7 +23,6 @@ VAL_SPAM = Path('python_project', 'split_email_folder', 'val', 'no_deseado')
 
 
 def train_bag_of_words(k=1, improve_filter=False):
-
     """
     Función que entrena al modelo de Bolsa de Palabras.
 
@@ -33,7 +30,7 @@ def train_bag_of_words(k=1, improve_filter=False):
     :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
         encuentra a False.
     :return: Una tupla que contiene los pesos del modelo entrenado con el
-        conjunto de entrenamiento spam y no spam
+        conjunto de entrenamiento spam y no spam.
     """
 
     vocabulary_list = get_vocabulary(improve_filter)
@@ -103,7 +100,6 @@ def train_bag_of_words(k=1, improve_filter=False):
 
 
 def classify_email_bow(email_path, k=1, improve_filter=False):
-
     """
     Función que clasifica un email como spam o no_spam.
 
@@ -155,7 +151,6 @@ def classify_email_bow(email_path, k=1, improve_filter=False):
 
 def classify_emails_bow(folder_path, val_emails=None, k=1,
                         improve_filter=False):
-
     """
     Función que clasifica los emails de prueba como spam o no_spam.
 
@@ -216,12 +211,15 @@ def classify_emails_bow(folder_path, val_emails=None, k=1,
 
 
 def get_vectors_softened(k=1, improve_filter=False):
-
     """
+    Función que genera o obtine los pesos del modelo entrenado dependiendo de
+    si están o no generados sus archivos json.
 
-    :param k:
-    :param improve_filter:
-    :return:
+    :param int k: Hiperparámetro de suavizado.
+    :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
+        encuentra a False.
+    :return: Una tupla que contiene los pesos del modelo entrenado con el
+        conjunto de entrenamiento spam y no spam.
     """
 
     if not improve_filter:
@@ -272,6 +270,15 @@ def get_vectors_softened(k=1, improve_filter=False):
 
 
 def generate_confusion_matrix(k=1, improve_filter=False):
+    """
+    Función que genera las matrices de confusión de los correos de
+    entrenamiento para el modelo de Bolsa de Palabras.
+
+    :param int k: Hiperparámetro de suavizado.
+    :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
+        encuentra a False.
+    """
+
     confusion_matrix_path = Path('python_project', 'bag_of_word',
                                  'generated_documents')
 
@@ -284,7 +291,7 @@ def generate_confusion_matrix(k=1, improve_filter=False):
     true_spam = ['spam' for i in range(len(pred_spam))]
 
     list_no_spam_emails = [dic_emails[e] for e in dic_emails.keys()
-                    if e.startswith('no_spam')]
+                           if e.startswith('no_spam')]
 
     pred_no_spam = classify_emails_bow('', list_no_spam_emails, k,
                                        improve_filter)
@@ -297,13 +304,16 @@ def generate_confusion_matrix(k=1, improve_filter=False):
 
 
 def get_corpus(train=True, improve_filter=False):
+    """
+    Función que obtiene el corpus de entrenamiento o de prueba.
+
+    :param bool train: Leer la carpeta de entrenamiento o de prueba.
+        Por defecto se lee la de entrenamiento.
+    :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
+        encuentra a False. Por defecto es 1.
+    :return: Diccionario donde la clave es la clase correcta a la que
+        pertenece ese email, spam o no_spam, y el valor es el cuerpo del email.
+    :rtype: dict[str,str]
+    """
+
     return get_dic_train_email(train, improve_filter)
-
-
-if __name__ == '__main__':
-    print(classify_email_bow(ROOT_PATH + '\\python_project'
-                                         '\\split_email_folder\\val'
-                                         '\\no_deseado\\7'))
-
-    # for k in range(12, 20):
-    #     generate_confusion_matrix(k)

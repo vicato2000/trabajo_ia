@@ -118,8 +118,8 @@ def classify_emails(k=1, improve_filter=False):
         Función que clasifica los emails de prueba como spam o no_spam.
 
         :param int k: Valor del parámetro k de KNN. Por defecto es 1.
-        :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
-            encuentra a False. Por defecto es 1.
+        :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto
+            se encuentra a False. Por defecto es 1.
         :return: Un diccionario en que las claves son las clases correctas, y
             los valores son las clases predichas.
         :rtype: dict[str,str]
@@ -162,13 +162,14 @@ def classify_emails(k=1, improve_filter=False):
 
 
 def generate_confusion_matrix(k, improve_filter=False):
+
     """
     Función que genera las matrices de confusión de los correos de
-    entrenamiento.
+    entrenamiento para el modelo TF-IDF.
 
     :param int k: Valor del parámetro k de KNN. Por defecto es 1.
     :param bool improve_filter: Usar o no técnicas de mejoras. Por defecto se
-        encuentra a False. Por defecto es 1.
+        encuentra a False.
     """
 
     confusion_matrix_path = Path('python_project', 'tf_idf',
@@ -228,6 +229,7 @@ def get_tf_idf_vector(improve_filter=False):
 
 
 def get_corpus(train=True, improve_filter=False):
+
     """
     Función que obtiene el corpus de entrenamiento o de prueba.
 
@@ -243,7 +245,6 @@ def get_corpus(train=True, improve_filter=False):
     return get_dic_train_email(train, improve_filter)
 
 
-# no_spam_N --> no_spam // spam_N --> spam
 def map_name_to_class(name):
     """
     Función que mapean los string del tipo 'no_spam_N', o 'spam_N', como
@@ -256,13 +257,3 @@ def map_name_to_class(name):
     """
 
     return re.sub(r'_\d+', '', name)
-
-
-if __name__ == '__main__':
-    print(classify_email(ROOT_PATH + '\\python_project'
-                                     '\\split_email_folder\\val'
-                                     '\\legítimo\\1', True))
-
-    # for k in range(1, 20):
-    #     if k % 2 != 0:
-    #         generate_confusion_matrix(k, True)

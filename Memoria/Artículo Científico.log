@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.12)  18 JUN 2022 12:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.12)  25 JUN 2022 18:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -481,130 +481,168 @@ LaTeX Info: Redefining \nameref on input line 38.
 \@outlinefile=\write3
 \openout3 = `"Artículo Científico.out"'.
 
-<spam.png, id=57, 183.68625pt x 184.2885pt>
+<spam.png, id=61, 183.68625pt x 184.2885pt>
 File: spam.png Graphic file (type png)
 <use spam.png>
-Package pdftex.def Info: spam.png  used on input line 95.
+Package pdftex.def Info: spam.png  used on input line 93.
 (pdftex.def)             Requested size: 183.68578pt x 184.28804pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [1{C:/Users/vicen/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}
 
 
  <./spam.png>]
-Underfull \hbox (badness 4608) in paragraph at lines 131--133
+Underfull \hbox (badness 4608) in paragraph at lines 134--136
 \OT1/ptm/m/n/10 Bayes multi-nom-i-nal, ``un clasi-fi-cador prob-a-bil[]^^Pstico
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--133
+Underfull \hbox (badness 10000) in paragraph at lines 134--136
 
  []
 
-<knn.jpg, id=75, 109.00725pt x 68.05424pt>
-File: knn.jpg Graphic file (type jpg)
-<use knn.jpg>
-Package pdftex.def Info: knn.jpg  used on input line 144.
-(pdftex.def)             Requested size: 109.00697pt x 68.05406pt.
-[2 <./knn.jpg>]
-<python.jpg, id=100, 36.135pt x 40.35075pt>
+<knn.png, id=81, 120.45pt x 90.3375pt>
+File: knn.png Graphic file (type png)
+<use knn.png>
+Package pdftex.def Info: knn.png  used on input line 147.
+(pdftex.def)             Requested size: 120.44969pt x 90.33727pt.
+[2 <./knn.png>]
+<python.jpg, id=108, 36.135pt x 40.35075pt>
 File: python.jpg Graphic file (type jpg)
 <use python.jpg>
-Package pdftex.def Info: python.jpg  used on input line 203.
+Package pdftex.def Info: python.jpg  used on input line 197.
 (pdftex.def)             Requested size: 36.13489pt x 40.35065pt.
- [3 <./python.jpg>]
-<librerias.jpg, id=126, 206.57175pt x 122.859pt>
-File: librerias.jpg Graphic file (type jpg)
-<use librerias.jpg>
-Package pdftex.def Info: librerias.jpg  used on input line 240.
-(pdftex.def)             Requested size: 206.57123pt x 122.85867pt.
- [4 <./librerias.jpg>]
 
-LaTeX Warning: Reference `tab:ejemplo' on page 5 undefined on input line 314.
+Underfull \hbox (badness 10000) in paragraph at lines 214--216
 
+ []
 
-Underfull \hbox (badness 2173) in paragraph at lines 335--336
+[3 <./python.jpg>]
+Underfull \hbox (badness 1383) in paragraph at lines 244--245
+[]\OT1/ptm/m/n/10 Matplotlib es una bib-lioteca para la gen-eraci[]on de
+ []
+
+<librerias.png, id=145, 255.354pt x 146.949pt>
+File: librerias.png Graphic file (type png)
+<use librerias.png>
+Package pdftex.def Info: librerias.png  used on input line 263.
+(pdftex.def)             Requested size: 255.35338pt x 146.94864pt.
+
+Overfull \hbox (3.35338pt too wide) in paragraph at lines 263--264
+ [][] 
+ []
+
+[4 <./librerias.png>] [5]
+Underfull \hbox (badness 10000) in paragraph at lines 383--385
+
+ []
+
+<matrix.jpg, id=180, 196.5744pt x 52.0344pt>
+File: matrix.jpg Graphic file (type jpg)
+<use matrix.jpg>
+Package pdftex.def Info: matrix.jpg  used on input line 388.
+(pdftex.def)             Requested size: 196.57391pt x 52.03426pt.
+<bow.jpg, id=182, 144.54pt x 108.405pt>
+File: bow.jpg Graphic file (type jpg)
+<use bow.jpg>
+Package pdftex.def Info: bow.jpg  used on input line 421.
+(pdftex.def)             Requested size: 144.53963pt x 108.40472pt.
+[6 <./matrix.jpg>]
+<bowCM.jpg, id=192, 129.1224pt x 96.8418pt>
+File: bowCM.jpg Graphic file (type jpg)
+<use bowCM.jpg>
+Package pdftex.def Info: bowCM.jpg  used on input line 431.
+(pdftex.def)             Requested size: 129.12209pt x 96.84154pt.
+<tf-idef.jpg, id=193, 131.5314pt x 98.769pt>
+File: tf-idef.jpg Graphic file (type jpg)
+<use tf-idef.jpg>
+Package pdftex.def Info: tf-idef.jpg  used on input line 442.
+(pdftex.def)             Requested size: 131.53107pt x 98.76874pt.
+<tf-idfCM.jpg, id=194, 131.0496pt x 98.2872pt>
+File: tf-idfCM.jpg Graphic file (type jpg)
+<use tf-idfCM.jpg>
+Package pdftex.def Info: tf-idfCM.jpg  used on input line 451.
+(pdftex.def)             Requested size: 131.04927pt x 98.28694pt.
+ [7 <./bow.jpg> <./bowCM.jpg> <./tf-idef.jpg> <./tf-idfCM.jpg>]
+Underfull \hbox (badness 2173) in paragraph at lines 482--483
 \OT1/ptm/m/it/8 clasi-fi-ca-ciones y los clasi-fi-cadores? []$\OT1/ptm/m/n/8 ht
 tps : / / www . statdeveloper . com /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 343--344
+Underfull \hbox (badness 10000) in paragraph at lines 490--491
 []\OT1/ptm/m/sc/8 Mayo, M \OT1/ptm/m/it/8 (2018, 3 de mayo). Cien-cia y Datos. 
 Pre-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 343--344
+Underfull \hbox (badness 10000) in paragraph at lines 490--491
 \OT1/ptm/m/it/8 proce-samiento de datos de texto: un tu-to-rial en Python.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 343--344
+Underfull \hbox (badness 10000) in paragraph at lines 490--491
 \OT1/ptm/m/it/8 Elim-i-naci[]on de ruido []$\OT1/ptm/m/n/8 https : / / medium .
  com / datos-[]y-[]ciencia /
  []
 
 
-Overfull \hbox (7.01817pt too wide) in paragraph at lines 343--344
+Overfull \hbox (7.01817pt too wide) in paragraph at lines 490--491
 \OT1/ptm/m/n/8 preprocesamiento-[]de-[]datos-[]de-[]texto-[]un-[]tutorial-[]en-
 []python-[]5db5620f1767$[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 345--346
+Underfull \hbox (badness 10000) in paragraph at lines 492--493
 []\OT1/ptm/m/sc/8 Mayo, M \OT1/ptm/m/it/8 (2018, 3 de mayo). Cien-cia y Datos.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 345--346
+Underfull \hbox (badness 10000) in paragraph at lines 492--493
 \OT1/ptm/m/it/8 Pre-proce-samiento de datos de texto: un tu-to-rial en
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 345--346
+Underfull \hbox (badness 10000) in paragraph at lines 492--493
 \OT1/ptm/m/it/8 Python. To-k-enizaci[]on []$\OT1/ptm/m/n/8 https : / / medium .
  com / datos-[]y-[]ciencia /
  []
 
 
-Overfull \hbox (7.01817pt too wide) in paragraph at lines 345--346
+Overfull \hbox (7.01817pt too wide) in paragraph at lines 492--493
 \OT1/ptm/m/n/8 preprocesamiento-[]de-[]datos-[]de-[]texto-[]un-[]tutorial-[]en-
 []python-[]5db5620f1767$[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--348
+Underfull \hbox (badness 10000) in paragraph at lines 494--495
 []\OT1/ptm/m/sc/8 Mayo, M \OT1/ptm/m/it/8 (2018, 3 de mayo). Cien-cia y Datos.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--348
+Underfull \hbox (badness 10000) in paragraph at lines 494--495
 \OT1/ptm/m/it/8 Pre-proce-samiento de datos de texto: un tu-to-rial en
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--348
+Underfull \hbox (badness 10000) in paragraph at lines 494--495
 \OT1/ptm/m/it/8 Python. Nor-mal-izaci[]on []$\OT1/ptm/m/n/8 https : / / medium 
 . com / datos-[]y-[]ciencia /
  []
 
 
-Overfull \hbox (7.01817pt too wide) in paragraph at lines 347--348
+Overfull \hbox (7.01817pt too wide) in paragraph at lines 494--495
 \OT1/ptm/m/n/8 preprocesamiento-[]de-[]datos-[]de-[]texto-[]un-[]tutorial-[]en-
 []python-[]5db5620f1767$[] 
  []
 
 
-Underfull \hbox (badness 2635) in paragraph at lines 349--350
+Underfull \hbox (badness 2635) in paragraph at lines 505--506
 []\OT1/ptm/m/sc/8 Structuralia \OT1/ptm/m/it/8 (2020, 23 de oc-tubre). La util-
 i-dad de Python
  []
 
 
-Underfull \hbox (badness 2735) in paragraph at lines 349--350
+Underfull \hbox (badness 2735) in paragraph at lines 505--506
 \OT1/ptm/m/it/8 para la in-teligen-cia ar-ti-fi-cial. Python y sus ven-ta-jas p
 ara los
  []
@@ -620,22 +658,19 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5] (Artículo Científico.aux)
-
-LaTeX Warning: There were undefined references.
-
+[8] (Artículo Científico.aux)
 Package rerunfilecheck Info: File `"Artículo Científico".out' has not changed
 .
-(rerunfilecheck)             Checksum: DC4CC8DD00C512624F07484D9BDC3670;2091.
+(rerunfilecheck)             Checksum: D2D2AEBC8BDEDC7194F916999F613C91;2337.
  ) 
 Here is how much of TeX's memory you used:
- 10955 strings out of 478582
- 178964 string characters out of 2844344
- 493589 words of memory out of 3000000
- 28958 multiletter control sequences out of 15000+600000
+ 11025 strings out of 478582
+ 179668 string characters out of 2844344
+ 494789 words of memory out of 3000000
+ 28994 multiletter control sequences out of 15000+600000
  505827 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,8n,63p,1549b,362s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 60i,8n,63p,1597b,432s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/vicen/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:
 /Users/vicen/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex1
 0.pfb><C:/Users/vicen/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
@@ -650,9 +685,9 @@ AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/vicen/
 AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/vicen
 /AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/vicen
 /AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on "Artículo Científico.pdf" (5 pages, 314784 bytes).
+Output written on "Artículo Científico.pdf" (8 pages, 433592 bytes).
 PDF statistics:
- 239 PDF objects out of 1000 (max. 8388607)
- 45 named destinations out of 1000 (max. 500000)
- 125 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 329 PDF objects out of 1000 (max. 8388607)
+ 75 named destinations out of 1000 (max. 500000)
+ 158 words of extra memory for PDF output out of 10000 (max. 10000000)
 

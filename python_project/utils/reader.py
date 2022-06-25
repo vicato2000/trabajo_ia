@@ -38,7 +38,7 @@ def read_email(email_path):
 
     :param str email_path: Ruta del email.
     :return: Cadena de texto con el cuerpo del email, en el caso de ser
-        multipar devuelve todas las partes concatenadas.
+        multipart devuelve todas las partes concatenadas.
     :rtype: str
     """
 
