@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.12)  25 JUN 2022 18:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.12)  26 JUN 2022 17:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -500,28 +500,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 134--136
 
  []
 
-<knn.png, id=81, 120.45pt x 90.3375pt>
+<knn.png, id=81, 803.0pt x 602.25pt>
 File: knn.png Graphic file (type png)
 <use knn.png>
 Package pdftex.def Info: knn.png  used on input line 147.
-(pdftex.def)             Requested size: 120.44969pt x 90.33727pt.
+(pdftex.def)             Requested size: 200.74951pt x 150.56212pt.
 [2 <./knn.png>]
-<python.jpg, id=108, 36.135pt x 40.35075pt>
-File: python.jpg Graphic file (type jpg)
-<use python.jpg>
-Package pdftex.def Info: python.jpg  used on input line 197.
-(pdftex.def)             Requested size: 36.13489pt x 40.35065pt.
+<python.png, id=107, 963.6pt x 281.05pt>
+File: python.png Graphic file (type png)
+<use python.png>
+Package pdftex.def Info: python.png  used on input line 197.
+(pdftex.def)             Requested size: 240.89941pt x 70.26231pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 214--216
 
  []
 
-[3 <./python.jpg>]
+[3 <./python.png>]
 Underfull \hbox (badness 1383) in paragraph at lines 244--245
 []\OT1/ptm/m/n/10 Matplotlib es una bib-lioteca para la gen-eraci[]on de
  []
 
-<librerias.png, id=145, 255.354pt x 146.949pt>
+<librerias.png, id=143, 255.354pt x 146.949pt>
 File: librerias.png Graphic file (type png)
 <use librerias.png>
 Package pdftex.def Info: librerias.png  used on input line 263.
@@ -536,33 +536,33 @@ Underfull \hbox (badness 10000) in paragraph at lines 383--385
 
  []
 
-<matrix.jpg, id=180, 196.5744pt x 52.0344pt>
+<matrix.jpg, id=178, 442.65375pt x 128.8815pt>
 File: matrix.jpg Graphic file (type jpg)
 <use matrix.jpg>
 Package pdftex.def Info: matrix.jpg  used on input line 388.
-(pdftex.def)             Requested size: 196.57391pt x 52.03426pt.
-<bow.jpg, id=182, 144.54pt x 108.405pt>
-File: bow.jpg Graphic file (type jpg)
-<use bow.jpg>
-Package pdftex.def Info: bow.jpg  used on input line 421.
-(pdftex.def)             Requested size: 144.53963pt x 108.40472pt.
+(pdftex.def)             Requested size: 221.32632pt x 64.44058pt.
+<bow.png, id=180, 462.528pt x 346.896pt>
+File: bow.png Graphic file (type png)
+<use bow.png>
+Package pdftex.def Info: bow.png  used on input line 421.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
 [6 <./matrix.jpg>]
-<bowCM.jpg, id=192, 129.1224pt x 96.8418pt>
-File: bowCM.jpg Graphic file (type jpg)
-<use bowCM.jpg>
-Package pdftex.def Info: bowCM.jpg  used on input line 431.
-(pdftex.def)             Requested size: 129.12209pt x 96.84154pt.
-<tf-idef.jpg, id=193, 131.5314pt x 98.769pt>
-File: tf-idef.jpg Graphic file (type jpg)
-<use tf-idef.jpg>
-Package pdftex.def Info: tf-idef.jpg  used on input line 442.
-(pdftex.def)             Requested size: 131.53107pt x 98.76874pt.
-<tf-idfCM.jpg, id=194, 131.0496pt x 98.2872pt>
-File: tf-idfCM.jpg Graphic file (type jpg)
-<use tf-idfCM.jpg>
-Package pdftex.def Info: tf-idfCM.jpg  used on input line 451.
-(pdftex.def)             Requested size: 131.04927pt x 98.28694pt.
- [7 <./bow.jpg> <./bowCM.jpg> <./tf-idef.jpg> <./tf-idfCM.jpg>]
+<bowCM.png, id=192, 462.528pt x 346.896pt>
+File: bowCM.png Graphic file (type png)
+<use bowCM.png>
+Package pdftex.def Info: bowCM.png  used on input line 431.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+<tf-idf.png, id=193, 462.528pt x 346.896pt>
+File: tf-idf.png Graphic file (type png)
+<use tf-idf.png>
+Package pdftex.def Info: tf-idf.png  used on input line 442.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+<tf-idfCM.png, id=194, 462.528pt x 346.896pt>
+File: tf-idfCM.png Graphic file (type png)
+<use tf-idfCM.png>
+Package pdftex.def Info: tf-idfCM.png  used on input line 451.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+ [7 <./bow.png> <./bowCM.png> <./tf-idf.png> <./tf-idfCM.png>]
 Underfull \hbox (badness 2173) in paragraph at lines 482--483
 \OT1/ptm/m/it/8 clasi-fi-ca-ciones y los clasi-fi-cadores? []$\OT1/ptm/m/n/8 ht
 tps : / / www . statdeveloper . com /
@@ -647,6 +647,7 @@ Underfull \hbox (badness 2735) in paragraph at lines 505--506
 ara los
  []
 
+[8]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -658,19 +659,21 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[8] (Artículo Científico.aux)
+[9
+
+] (Artículo Científico.aux)
 Package rerunfilecheck Info: File `"Artículo Científico".out' has not changed
 .
 (rerunfilecheck)             Checksum: D2D2AEBC8BDEDC7194F916999F613C91;2337.
  ) 
 Here is how much of TeX's memory you used:
- 11025 strings out of 478582
- 179668 string characters out of 2844344
- 494789 words of memory out of 3000000
- 28994 multiletter control sequences out of 15000+600000
+ 11024 strings out of 478582
+ 179563 string characters out of 2844344
+ 493789 words of memory out of 3000000
+ 28992 multiletter control sequences out of 15000+600000
  505827 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,8n,63p,1597b,432s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 60i,8n,63p,1597b,462s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/vicen/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:
 /Users/vicen/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex1
 0.pfb><C:/Users/vicen/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
@@ -685,9 +688,9 @@ AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/vicen/
 AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/vicen
 /AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/vicen
 /AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on "Artículo Científico.pdf" (8 pages, 433592 bytes).
+Output written on "Artículo Científico.pdf" (9 pages, 510432 bytes).
 PDF statistics:
- 329 PDF objects out of 1000 (max. 8388607)
- 75 named destinations out of 1000 (max. 500000)
+ 337 PDF objects out of 1000 (max. 8388607)
+ 76 named destinations out of 1000 (max. 500000)
  158 words of extra memory for PDF output out of 10000 (max. 10000000)
 
